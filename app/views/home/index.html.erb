@@ -27,6 +27,6 @@
 
 <ul class="list-groups">
 <% @questions.each do |question| %>
-	<li class="list-group-item"><%= question.description %></li>
+	<li class="list-group-item"><%= link_to question.description, question_path(question) %></li>
 <% end %>
 </ul>
