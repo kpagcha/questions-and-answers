@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  'yes': false
+  'no': false
+  question_id_id: 
+  user_id_id: 
+
+two:
+  'yes': false
+  'no': false
+  question_id_id: 
+  user_id_id: 
