@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105192903) do
+ActiveRecord::Schema.define(version: 20141105203221) do
 
   create_table "answers", force: true do |t|
     t.text     "description"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 20141105192903) do
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+
+  create_table "answers_votes", force: true do |t|
+    t.integer  "count"
+    t.integer  "answer_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answers_votes", ["answer_id"], name: "index_answers_votes_on_answer_id", using: :btree
+  add_index "answers_votes", ["user_id"], name: "index_answers_votes_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -32,13 +43,27 @@ ActiveRecord::Schema.define(version: 20141105192903) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "answer_id"
   end
+
+  add_index "comments", ["answer_id"], name: "index_comments_on_answer_id", using: :btree
 
   create_table "questions", force: true do |t|
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "questions_votes", force: true do |t|
+    t.integer  "count"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "questions_votes", ["question_id"], name: "index_questions_votes_on_question_id", using: :btree
+  add_index "questions_votes", ["user_id"], name: "index_questions_votes_on_user_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -75,17 +100,5 @@ ActiveRecord::Schema.define(version: 20141105192903) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
-
-  create_table "votes", force: true do |t|
-    t.boolean  "yes"
-    t.boolean  "no"
-    t.integer  "question_id_id"
-    t.integer  "user_id_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "votes", ["question_id_id"], name: "index_votes_on_question_id_id", using: :btree
-  add_index "votes", ["user_id_id"], name: "index_votes_on_user_id_id", using: :btree
 
 end

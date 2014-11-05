@@ -28,6 +28,7 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
+        Question.find(params[:question][:id]) << @answer
         format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
       else
