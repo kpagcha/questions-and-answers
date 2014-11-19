@@ -11,7 +11,9 @@ class VoteController < ApplicationController
 				@vote.user = User.find user_id
 				@vote.save
 				votes = Vote.where(["question_id = :q", { q: question_id }]).count
-				format.json { render :json => { :status => true, :votes => votes } }
+				format.json { render :json => { status: true, votes: votes } }
+			else
+				format.json { render :json => { status: false } }
 			end
 		end
 	end
