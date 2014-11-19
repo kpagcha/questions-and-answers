@@ -17,3 +17,11 @@
 body {
 	padding: 70px;
 }
+
+.bottom-buffer {
+	margin-bottom: 20px;
+}
+
+.bottom-padding {
+	padding-bottom: 30px !important;
+}

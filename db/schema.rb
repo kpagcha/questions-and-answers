@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119113900) do
+ActiveRecord::Schema.define(version: 20141119122036) do
 
   create_table "answers", force: true do |t|
     t.text     "description"
@@ -101,5 +101,10 @@ ActiveRecord::Schema.define(version: 20141119113900) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+
+  create_table "votes", force: true do |t|
+    t.integer "question_id"
+    t.integer "user_id"
+  end
 
 end

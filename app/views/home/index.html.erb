@@ -1,4 +1,8 @@
-<h1>Questions and Answers</h1>
+<div class="col-md-6 col-md-offset-3">
+
+<div class="col-md-offset-2">
+  <h1>Questions and Answers</h1>
+</div>
 
 <%= form_for(@question, html: { class: "form-horizontal" }) do |f| %>
   <% if @question.errors.any? %>
@@ -27,6 +31,15 @@
 
 <ul class="list-groups">
 <% @questions.each do |question| %>
-	<li class="list-group-item"><%= link_to question.description, question_path(question) %></li>
+	<li class="list-group-item bottom-padding">
+    <div id="notice-<%= question.id %>" class="alert alert-warning col-md-12 hidden"></div>
+    <%= link_to question.description, question_path(question) %>
+    <%= form_for(question, :url => url_for(:controller => 'vote', :action => 'vote'), method: :post, remote: true, html: { class: 'form-inline pull-right' }) do |f| %>
+      <%= f.submit '+1', class: "btn btn-info" %>
+      <span class="badge"><%= question.votes.count %></span>
+      <%= f.hidden_field :id, :value => question.id %>
+    <% end %>
+  </li>
 <% end %>
 </ul>
+</div>
