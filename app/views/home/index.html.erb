@@ -1,45 +1,44 @@
 <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-offset-2">
+    <h1>Questions and Answers</h1>
+  </div>
 
-<div class="col-md-offset-2">
-  <h1>Questions and Answers</h1>
-</div>
+  <%= form_for(@question, html: { class: "form-horizontal" }) do |f| %>
+    <% if @question.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger">
+        <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+        <ul>
+        <% @question.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<%= form_for(@question, html: { class: "form-horizontal" }) do |f| %>
-  <% if @question.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger">
-      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-      <ul>
-      <% @question.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="form-group">
+      <%= f.label :description, "Ask a question", class: "col-sm-2 control-label" %><br>
+      <div class="col-sm-10">
+      	<%= f.text_area :description, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+    	<div class="col-sm-offset-2 col-sm-10">
+      	<%= f.submit class: "btn btn-default" %>
+      </div>
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :description, "Ask a question", class: "col-sm-2 control-label" %><br>
-    <div class="col-sm-10">
-    	<%= f.text_area :description, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-  	<div class="col-sm-offset-2 col-sm-10">
-    	<%= f.submit class: "btn btn-default" %>
-    </div>
-  </div>
-<% end %>
-
-<ul class="list-groups">
-<% @questions.each do |question| %>
-	<li class="list-group-item bottom-padding">
-    <div id="notice-<%= question.id %>" class="alert alert-warning col-md-12 hidden"></div>
-    <%= link_to question.description, question_path(question) %>
-    <%= form_for(question, :url => url_for(:controller => 'vote', :action => 'vote'), method: :post, remote: true, html: { class: 'form-inline pull-right' }) do |f| %>
-      <%= f.submit '+1', class: "btn btn-info" %>
-      <span class="badge"><%= question.votes.count %></span>
-      <%= f.hidden_field :id, :value => question.id %>
-    <% end %>
-  </li>
-<% end %>
-</ul>
+  <ul class="list-groups">
+  <% @questions.each do |question| %>
+  	<li class="list-group-item bottom-padding">
+      <div id="notice-<%= question.id %>" class="alert alert-warning col-md-12 hidden"></div>
+      <%= link_to question.description, question_path(question) %>
+      <%= form_for(question, :url => url_for(:controller => 'vote', :action => 'vote'), method: :post, remote: true, html: { class: 'form-inline pull-right' }) do |f| %>
+        <%= f.submit '+1', class: "btn btn-info" %>
+        <span class="badge"><%= question.votes.count %></span>
+        <%= f.hidden_field :id, :value => question.id %>
+      <% end %>
+    </li>
+  <% end %>
+  </ul>
 </div>

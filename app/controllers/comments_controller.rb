@@ -29,9 +29,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        answer = Answer.find(params[:answer][:id]).comments
-        answer << @comment
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+        answer = Answer.find(params[:answer][:id])
+        answer.comments << @comment
+        format.html { redirect_to answer.question, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }
