@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
 
   protected
 	def is_admin
-		redirect_to '/' unless current_user.is? :admin
+		redirect_to '/', notice: 'This section is only for admin' unless current_user.is? :admin
 	end
 end
