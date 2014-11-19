@@ -14,6 +14,7 @@ class VoteController < ApplicationController
 				format.json { render :json => { status: true, votes: votes } }
 			else
 				format.json { render :json => { status: false } }
+				#format.json { head :ok }
 			end
 		end
 	end
