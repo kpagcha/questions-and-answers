@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_filter :is_admin, except: [:create]
 
   # GET /comments
   # GET /comments.json
@@ -28,7 +29,8 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        Answer.find(params[:answer][:id]).comments << @comment
+        answer = Answer.find(params[:answer][:id]).comments
+        answer << @comment
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else

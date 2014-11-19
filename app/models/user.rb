@@ -5,8 +5,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :role
-
   # has_and_belongs_to_many :roles, :join_table => :users_roles
 
   Roles = [ :admin, :default ]
@@ -15,11 +13,11 @@ class User < ActiveRecord::Base
     self.role == requested_role.to_s
   end
 
-  def admin_role
+  def self.admin_role
     return Roles[0]
   end
 
-  def default_role
+  def self.default_role
     return Roles[1]
   end
 end

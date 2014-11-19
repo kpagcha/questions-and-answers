@@ -3,4 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+
+  protected
+	def is_admin
+		redirect_to '/' unless current_user.is? :admin
+	end
 end
