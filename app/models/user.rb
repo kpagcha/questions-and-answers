@@ -5,10 +5,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_and_belongs_to_many :roles, :join_table => :users_roles
+  # has_and_belongs_to_many :roles, :join_table => :users_roles
 
-  def admin?
-    admin_role = Role.where("name", "=", "admin").pluck(:id)
-    return self.roles.include?(admin_role)
+  Roles = [ :admin, :default ]
+
+  def is? requested_role
+    self.role == requested_role.to_s
   end
 end
