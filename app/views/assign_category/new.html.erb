@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+<h1>Assign category</h1>
+
+<%= form_for(@assign_category) do |f| %>
+  <% if @assign_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assign_category.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+      <ul>
+      <% @assign_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :question %><br>
+    <%= f.select "question", options_from_collection_for_select(Question.all, "id", "description") %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create category" %>
+  </div>
+<% end %>

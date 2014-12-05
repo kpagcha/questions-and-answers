@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { registrations: "users/registrations" }
-
   resources :categories
+  # get '/categories' => 'categories#index'
+  # post '/categories' => 'assign_category#create'
+  # get '/categories/new' => 'assign_category#new'
+  # get '/categories/:id/edit' => 'categories#edit'
+  # get '/categories/:id' => 'categories#show'
+  # patch '/categories/:id' => 'categories#update'
+  # put '/categories/:id' => 'categories#update'
+  # delete '/categories/:id' => 'categories#destroy'
+
+  get '/assign_categories' => 'assign_category#new'
+  post '/assign_categories' => 'assign_category#create'
+
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
   resources :comments
 
